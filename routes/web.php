@@ -23,5 +23,15 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::prefix('/admin')->namespace('Admin')->group(function(){
     //All the admin routes will be defined here
-    Route::get('dashboard','AdminController@dashboard');
+
+    Route::match(['get','post'],'/','AdminController@login');
+
+    Route::group(['middleware'=>['admin']],function(){
+
+        Route::get('dashboard','AdminController@dashboard');
+        Route::get('settings','AdminController@settings');
+        Route::get('logout','AdminController@logout');
+        Route::post('check-current-pwd','AdminController@chkCurrentPassword');
+    });
+    
 });
