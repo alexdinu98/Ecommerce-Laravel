@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Hash;
+
 use Auth;
 use Session;
 use App\Admin;
+use Hash;
+
 class AdminController extends Controller
 {
     public function dashboard(){
@@ -51,5 +53,10 @@ class AdminController extends Controller
     public function logout(){
         Auth::guard('admin')->logout();
         return redirect('/admin');
+    }
+
+    public function chkCurrentPassword(Request $request){
+        $data = $request->all();
+        echo "<pre>"; print_r($data); die;
     }
 }

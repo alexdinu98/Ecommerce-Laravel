@@ -3,7 +3,7 @@ $(document).ready(function(){
     $("#current_pwd").keyup(function(){
         var current_pwd = $("#current_pwd").val();
         alert(current_pwd);
-        $.ajax({
+        $.ajax ({
             type:'post',
             url:'/admin/check-current-pwd',
             data:{current_pwd:current_pwd},
@@ -12,6 +12,7 @@ $(document).ready(function(){
             },error:function(){
                 alert("Error");
             }
-        })
+        });
+        
     });
 });

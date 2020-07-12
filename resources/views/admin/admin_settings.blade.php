@@ -33,19 +33,19 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form role="form" method="post" action="{{url('/admin/update-pwd')}}" name="updatePasswordForm" id="updatePasswordForm">
+              <form role="form" method="post" action="{{url('/admin/update-pwd')}}" name="updatePasswordForm" id="updatePasswordForm">@csrf
                 <div class="card-body">
                 <div class="form-group">
                     <label for="exampleInputEmail1">Admin Name</label>
-                    <input type="text" class="form-control" value="{{$adminDetails->name}}" placeholder="Enter Admin/Sub Admin Name" id="admin_name" name="admin_name">
+                    <input type="text" class="form-control" value="{{ $adminDetails->name }}" placeholder="Enter Admin/Sub Admin Name" id="admin_name" name="admin_name">
                   </div>
                   <div class="form-group">
                     <label for="exampleInputEmail1">Admin Email</label>
-                    <input class="form-control" value="{{$adminDetails->email}}" readonly="" >
+                    <input class="form-control" value="{{ $adminDetails->email }}" readonly="" >
                   </div>
                   <div class="form-group">
                     <label for="exampleInputEmail1">Admin Type</label>
-                    <input class="form-control" value="{{$adminDetails->type}}" readonly="" >
+                    <input class="form-control" value="{{ $adminDetails->type }}" readonly="" >
                   </div>
                   <div class="form-group">
                     <label for="exampleInputPassword1">Current Password</label>
