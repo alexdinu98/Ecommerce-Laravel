@@ -75,13 +75,13 @@
                   
                   <div class="form-group">
                     <label for="exampleInputPassword1">Mobile</label>
-                    <input type="text" class="form-control" name="admin_mobile" id="admin_mobile" value="{{Auth::guard('admin')->user()->mobile}}" placeholder="Enter Admin Mobile" required="">
+                    <input type="text" class="form-control" name="admin_mobile" id="admin_mobile" value="{{Auth::guard('admin')->user()->mobile}}" placeholder="07XX-XXX-XXX" required="">
                   </div>
                   <div class="form-group">
                     <label for="exampleInputPassword1">Image</label>
                     <input type="file" class="form-control" name="admin_image" id="admin_image">
                     @if(!empty(Auth::guard('admin')->user()->image))
-                    <a href="">View Image</a>
+                    <a target="_blank" href="{{ url('images/admin_images/admin_photos/'.Auth::guard('admin')->user()->image)}}">View Image</a>
                     <input type="hidden" name="current_admin_image" value="{{ empty(Auth::guard('admin')->user()->image) }}">
                     @endif
                   </div>

@@ -9,6 +9,7 @@ use Auth;
 use Session;
 use App\Admin;
 use Hash;
+use Image;
 
 class AdminController extends Controller
 {
@@ -93,18 +94,37 @@ class AdminController extends Controller
             //echo "<pre>"; print_r($data); die;
             $rules = [
                 'admin_name' => 'required|regex:/^[\pL\s\-]+$/u',
-                'admin_mobile' => 'required|numeric'
+                'admin_mobile' => 'required|numeric',
+                'admin_image' => 'image'
             ];
             $customMessages = [
                 'admin_name.requiered' => 'Name is required',
                 'admin_name.alpha' => 'Valid Name is required',
                 'admin_mobile.required' => 'Mobile is required',
-                'admin_mobile.numeric' => 'Valid Mobile is required',
+                'admin_image.image' => 'Valid Image is required',
             ];
             $this->validate($request,$rules,$customMessages);
 
+            //Upload Image
+            if($request->hasFile('admin_image')){
+                $image_tmp = $request->file('admin_image');
+                if($image_tmp->isValid()){
+                    // Get Image Extension
+                    $extension = $image_tmp->getClientOriginalExtension();
+                    // Generate New Image Name
+                    $imageName = rand(111,99999).'.'.$extension;
+                    $imagePath = 'images/admin_images/admin_photos/'.$imageName;
+                    //Upload Image
+                    Image::make($image_tmp)->resize(300,400)->save($imagePath);
+                }else if(!empty($data['current_admin_page'])){
+                    $imageName = $data['current_admin_image'];
+                }else {
+                    $imageName = "";
+                }
+            }
+
             //Update Admin Details
-            Admin::where('email',Auth::guard('admin')->user()->email)->update(['name'=>$data['admin_name'],'mobile'=>$data['admin_mobile']]);
+            Admin::where('email',Auth::guard('admin')->user()->email)->update(['name'=>$data['admin_name'],'mobile'=>$data['admin_mobile'],'image'=>$imageName]);
             Session::flash('success_message','Admin details updated successfully!');
             return redirect()->back();
         }
